@@ -1,4 +1,4 @@
-## 🤖 AI Data Cleaning Assistant
+ AI Data Cleaning Assistant
 
 Developed an interactive **AI-powered Data Cleaning Assistant** to automate data-quality assessment and prepare raw datasets for reliable analysis. The application uses **Python and Pandas** to detect and handle missing values, duplicate records, inconsistent text, invalid dates, incorrect data types, and invalid values.
 
@@ -8,16 +8,16 @@ Users can preview the cleaned dataset and export the final data in **Excel and C
 
 ### Key Features
 
-* 🧹 Missing-value detection and handling
-* 🔁 Duplicate detection and removal
-* 📅 Date-format standardization
-* 🔤 Inconsistent-text detection and standardization
-* 🔢 Data-type validation
-* ⚠️ Invalid-value detection and flagging
-* 🤖 AI-generated data-quality explanations
-* 📊 Before/after cleaning analysis
-* 📈 Interactive data-quality visualizations
-* 📥 Cleaned Excel and CSV export
+*  Missing-value detection and handling
+*  Duplicate detection and removal
+*  Date-format standardization
+*  Inconsistent-text detection and standardization
+* Data-type validation
+*  Invalid-value detection and flagging
+*  AI-generated data-quality explanations
+*  Before/after cleaning analysis
+*  Interactive data-quality visualizations
+*  Cleaned Excel and CSV export
 
 ### Technologies
 
