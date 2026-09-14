@@ -1,0 +1,81 @@
+# Ai-powered-integrated-business-sales-dashboard
+AI-Powered Integrated Business Sales Dashboard — An interactive analytics dashboard using Python, SQL, Power BI, and AI to analyze sales performance, KPIs, trends, profitability, and generate actionable business insights.
+
+CODE
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+from cleaning_engine import DataCleaningEngine
+
+st.set_page_config(page_title="AutoClean & Analytics Engine", layout="wide")
+
+st.title("Data Cleaning Engine & Executive Dashboard")
+st.caption("Automated Data Hygiene, Validation, and Business Intelligence")
+
+uploaded_file = st.file_uploader("Upload Raw Excel or CSV File", type=["xlsx", "csv"])
+
+if uploaded_file:
+    # Read file
+    if uploaded_file.name.endswith(".xlsx"):
+        raw_df = pd.read_excel(uploaded_file)
+    else:
+        raw_df = pd.read_csv(uploaded_file)
+
+    st.subheader("Raw Data Preview")
+    st.dataframe(raw_df.head(5), use_container_width=True)
+
+    # Initialize Engine
+    engine = DataCleaningEngine(raw_df)
+    missing_report = engine.detect_missing_values()
+
+    # Step 1: Missing Value Diagnostics
+    with st.expander("Diagnostic Audit: Missing Values Found", expanded=True):
+        if not missing_report.empty:
+            st.dataframe(missing_report, use_container_width=True)
+        else:
+            st.success("No missing values detected.")
+
+    # Step 2: Run Automated Pipeline
+    if st.button("Run Full Data Cleaning Pipeline"):
+        cleaned_df, audit_log = engine.run_pipeline()
+
+        st.success("Pipeline executed successfully.")
+        
+        # Display Audit Report
+        st.subheader("Data Cleaning Audit Log")
+        for log in audit_log:
+            st.write(f"- {log}")
+
+        # Metrics Row
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Rows Cleaned", len(cleaned_df))
+        col2.metric("Columns Retained", len(cleaned_df.columns))
+        col3.metric("Duplicates Removed", len(raw_df) - len(cleaned_df))
+        col4.metric("Nulls Remaining", int(cleaned_df.isnull().sum().sum()))
+
+        # Dynamic Visualizations
+        st.subheader("Interactive Visual Analytics")
+        num_cols = cleaned_df.select_dtypes(include=["float64", "int64"]).columns.tolist()
+        cat_cols = cleaned_df.select_dtypes(include=["object", "category"]).columns.tolist()
+
+        if len(num_cols) >= 1 and len(cat_cols) >= 1:
+            chart_col1, chart_col2 = st.columns(2)
+            with chart_col1:
+                fig1 = px.bar(cleaned_df.groupby(cat_cols[0])[num_cols[0]].sum().reset_index(),
+                              x=cat_cols[0], y=num_cols[0], title=f"{num_cols[0]} by {cat_cols[0]}")
+                st.plotly_chart(fig1, use_container_width=True)
+            with chart_col2:
+                if len(num_cols) >= 2:
+                    fig2 = px.scatter(cleaned_df, x=num_cols[0], y=num_cols[1], color=cat_cols[0],
+                                      title=f"{num_cols[0]} vs {num_cols[1]}")
+                    st.plotly_chart(fig2, use_container_width=True)
+
+        # Downloads
+        st.subheader("Export Clean Dataset")
+        csv_data = cleaned_df.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="Download Cleaned CSV",
+            data=csv_data,
+            file_name="Cleaned_Dataset.csv",
+            mime="text/csv"
+        )
