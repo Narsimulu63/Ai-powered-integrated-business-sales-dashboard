@@ -1,0 +1,27 @@
+       Build a Python application where a user uploads a CSV/Excel file, and the assistant automatically:
+
+Upload Data → Profile Data → Detect Issues → Clean Data → Generate Report → AI Insights → Download Clean Data
+##  AI Data Cleaning Assistant
+
+Developed an interactive **AI-powered Data Cleaning Assistant** to automate data-quality assessment and prepare raw datasets for reliable analysis. The application uses **Python and Pandas** to detect and handle missing values, duplicate records, inconsistent text, invalid dates, incorrect data types, and invalid values.
+
+The project provides an interactive **data-quality dashboard** with before-and-after cleaning comparisons, data-quality metrics, issue summaries, and cleaning actions. **Generative AI and Prompt Engineering** are integrated to explain detected data-quality issues and provide intelligent recommendations for appropriate cleaning methods.
+
+Users can preview the cleaned dataset and export the final data in **Excel and CSV formats**, making it ready for further analysis, reporting, and business intelligence dashboards.
+
+### Key Features
+
+*  Missing-value detection and handling
+*  Duplicate detection and removal
+*  Date-format standardization
+*  Inconsistent-text detection and standardization
+*  Data-type validation
+*  Invalid-value detection and flagging
+*  AI-generated data-quality explanations
+*  Before/after cleaning analysis
+*  Interactive data-quality visualizations
+*  Cleaned Excel and CSV export
+
+ Technologies
+
+Python | Pandas | NumPy | Streamlit | Plotly | Generative AI | Prompt Engineering | Excel | CSV**
